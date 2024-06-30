@@ -26,6 +26,7 @@ const Canvas = ({ blocks, id, styles }: CanvasProps) => {
             key={block.blockId}
             id={block.blockId.toString()}
             styles={block.defaultStyle}
+            data={block}
           >
             {block.content}
           </Draggable>

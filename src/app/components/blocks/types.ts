@@ -14,3 +14,10 @@ export type BlockData = {
   defaultOrder: number;
   defaultStyle?: React.CSSProperties;
 };
+
+export enum CUSTOMIZATION {
+  Name = "name",
+  ImageSource = "image_source",
+  Color = "color",
+  BackgroundColor = "background_color",
+}

@@ -59,7 +59,9 @@ const App = () => {
       return block;
     });
 
-    const block = updatedBlockData.find((block) => block.blockId == active.id);
+    const block = active.data.current as BlockData;
+
+    setSelectedBlock(block);
 
     const isNewBlockPresent = updatedBlockData.some(
       (prevBlock) =>
@@ -81,6 +83,17 @@ const App = () => {
     setCanvasStyles({});
   };
 
+  const onDeleteBlockHandler = () => {
+    if (!selectedBlock) return;
+
+    const updatedBlockData = blockData.filter(
+      (block) => block.blockId !== selectedBlock.blockId
+    );
+
+    setBlockData(updatedBlockData);
+    setSelectedBlock(null);
+  };
+
   return (
     <DndContext
       sensors={sensors}
@@ -88,11 +101,13 @@ const App = () => {
       onDragMove={onDragMove}
       onDragEnd={onDragEnd}
     >
-      <div className="basis-1/4 border h-full p-4 relative">
+      <div className="basis-1/4 border h-full p-4 relative flex flex-col gap-2">
+        <span className="text-lg font-semibold">Blocks</span>
         <Blocks blocks={blockData} />
       </div>
-      <div className="basis-2/4 border h-full bg-[#EAEAEB] p-4">
-        <div className="grid grid-cols-30 h-full bg-white">
+      <div className="basis-2/4 border h-full bg-[#EAEAEB] p-4 flex flex-col gap-2">
+        <span className="text-lg font-semibold">Play Area</span>
+        <div className="grid grid-cols-30 h-[90%]  bg-white">
           {new Array(900).fill(0).map((_, index) => (
             <Canvas
               blocks={blockData}
@@ -104,8 +119,23 @@ const App = () => {
         </div>
       </div>
 
-      <div className="basis-1/3 border h-full p-4">
-        <Customiser />
+      <div className="basis-1/3 border h-full p-4 flex flex-col gap-2">
+        <div className="flex items-center justify-between">
+          <span className="text-lg font-semibold">Customizer</span>
+          {selectedBlock && (
+            <button
+              className="bg-[#DB2C66] px-3 py-1  text-white rounded-[4px]"
+              onClick={onDeleteBlockHandler}
+            >
+              Delete Block
+            </button>
+          )}
+        </div>
+        <Customiser
+          block={selectedBlock}
+          setBlockData={setBlockData}
+          blocks={blockData}
+        />
       </div>
     </DndContext>
   );

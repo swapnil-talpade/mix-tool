@@ -1,17 +1,20 @@
 "use client";
 
 import { useDraggable } from "@dnd-kit/core";
+import { BlockData } from "../blocks/types";
 
 type DraggableProps = {
   children: React.ReactNode;
   id: string;
   styles?: React.CSSProperties;
+  data: BlockData;
 };
 
-const Draggable = ({ children, id, styles }: DraggableProps) => {
+const Draggable = ({ children, id, styles, data }: DraggableProps) => {
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useDraggable({
       id,
+      data: data,
     });
 
   const style = transform

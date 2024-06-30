@@ -13,6 +13,10 @@ export const BLOCK_DATA: BlockData[] = [
       background: "#274BDB",
       padding: "1px 6px",
       height: "30px",
+      width: "100px",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
       color: "white",
       boxShadow:
         "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
@@ -31,6 +35,9 @@ export const BLOCK_DATA: BlockData[] = [
       height: "30px",
       color: "black",
       cursor: "pointer",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
     },
   },
   {
@@ -52,6 +59,9 @@ export const BLOCK_DATA: BlockData[] = [
       cursor: "pointer",
       width: "150px",
       height: "150px",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
     },
   },
 ];

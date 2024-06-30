@@ -18,6 +18,7 @@ const Blocks = ({ blocks }: BlocksProps) => {
             key={block.blockId}
             id={block.blockId.toString()}
             styles={block.defaultStyle}
+            data={block}
           >
             {block.content}
           </Draggable>
