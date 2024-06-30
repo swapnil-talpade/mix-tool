@@ -10,7 +10,7 @@ export type BlockData = {
   type: BLOCK_TYPE;
   dropableId: UniqueIdentifier | null;
   content: React.ReactNode;
-  blockId: number;
+  blockId: string;
   defaultOrder: number;
   defaultStyle?: React.CSSProperties;
 };

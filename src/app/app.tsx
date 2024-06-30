@@ -72,7 +72,7 @@ const App = () => {
       const newBlock: BlockData = {
         ...block!,
         dropableId: null,
-        blockId: Math.random() * 1000,
+        blockId: crypto.randomUUID(),
       };
 
       setBlockData([...updatedBlockData, newBlock]);

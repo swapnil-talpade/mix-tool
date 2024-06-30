@@ -8,7 +8,7 @@ export const BLOCK_DATA: BlockData[] = [
     dropableId: null,
     content: <div>Button</div>,
     defaultOrder: 1,
-    blockId: Math.random() * 1000,
+    blockId: crypto.randomUUID(),
     defaultStyle: {
       background: "#274BDB",
       padding: "1px 6px",
@@ -29,7 +29,7 @@ export const BLOCK_DATA: BlockData[] = [
     dropableId: null,
     defaultOrder: 2,
     content: <span>Text</span>,
-    blockId: Math.random() * 1000,
+    blockId: crypto.randomUUID(),
     defaultStyle: {
       padding: "1px 6px",
       height: "30px",
@@ -47,12 +47,13 @@ export const BLOCK_DATA: BlockData[] = [
     content: (
       <Image
         src={PlaceHolderImage}
+        priority={false}
         alt="placeholder-image"
         width={150}
         height={150}
       />
     ),
-    blockId: Math.random() * 1000,
+    blockId: crypto.randomUUID(),
     defaultStyle: {
       padding: "1px 6px",
       color: "black",

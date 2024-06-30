@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { BlockData, CUSTOMIZATION } from "../blocks/types";
 import { getCustomiserOptions } from "./util";
 import Image from "next/image";
