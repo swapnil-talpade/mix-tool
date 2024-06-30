@@ -107,7 +107,7 @@ const App = () => {
       </div>
       <div className="basis-2/4 border h-full bg-[#EAEAEB] p-4 flex flex-col gap-2">
         <span className="text-lg font-semibold">Play Area</span>
-        <div className="grid grid-cols-30 h-[90%]  bg-white">
+        <div className="grid grid-cols-30 h-[90%] bg-white">
           {new Array(900).fill(0).map((_, index) => (
             <Canvas
               blocks={blockData}

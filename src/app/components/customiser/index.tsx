@@ -11,7 +11,13 @@ type CustomiserProps = {
 
 const Customiser = ({ block, setBlockData, blocks }: CustomiserProps) => {
   if (!block) {
-    return <span>Please select a block to customize</span>;
+    return (
+      <div className="flex items-center justify-center rounded-md bg-[#EAEAEB] p-4 w-full">
+        <span className="text-gray-400">
+          Please select a block to customize
+        </span>
+      </div>
+    );
   }
 
   const customizations = getCustomiserOptions(block);
@@ -75,7 +81,9 @@ const Customiser = ({ block, setBlockData, blocks }: CustomiserProps) => {
 
   return (
     <div className="flex flex-col gap-2 items-start">
-      <div style={block?.defaultStyle}>{block?.content}</div>
+      <div className="flex items-center justify-center rounded-md bg-[#EAEAEB] p-4 w-full">
+        <div style={block?.defaultStyle}>{block?.content}</div>
+      </div>
       {customizations.map((customization) => {
         return (
           <div key={customization} className="w-full">
