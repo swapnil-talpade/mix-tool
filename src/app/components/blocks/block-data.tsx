@@ -12,7 +12,7 @@ export const BLOCK_DATA: BlockData[] = [
     defaultStyle: {
       background: "#274BDB",
       padding: "1px 6px",
-      height: "30px",
+      height: 30,
       width: "100px",
       display: "flex",
       justifyContent: "center",
@@ -22,6 +22,8 @@ export const BLOCK_DATA: BlockData[] = [
         "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
       borderRadius: "4px",
       cursor: "pointer",
+      position: "relative",
+      zIndex: 1,
     },
   },
   {
@@ -32,12 +34,14 @@ export const BLOCK_DATA: BlockData[] = [
     blockId: crypto.randomUUID(),
     defaultStyle: {
       padding: "1px 6px",
-      height: "30px",
+      height: 30,
       color: "black",
       cursor: "pointer",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
+      position: "relative",
+      zIndex: 1,
     },
   },
   {
@@ -58,6 +62,8 @@ export const BLOCK_DATA: BlockData[] = [
       cursor: "pointer",
       width: "150px",
       height: "auto",
+      position: "relative",
+      zIndex: 1,
     },
   },
 ];

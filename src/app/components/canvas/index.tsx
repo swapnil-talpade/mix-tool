@@ -1,8 +1,8 @@
 "use client";
 
 import { BlockData } from "../blocks/types";
-import Draggable from "../dragable";
 import Droppable from "../dropable";
+import BlockContent from "./block-content";
 
 type CanvasProps = {
   blocks: BlockData[];
@@ -22,14 +22,7 @@ const Canvas = ({ blocks, id, styles }: CanvasProps) => {
       {blocks
         .filter((block) => id === block.dropableId)
         .map((block) => (
-          <Draggable
-            key={block.blockId}
-            id={block.blockId.toString()}
-            styles={block.defaultStyle}
-            data={block}
-          >
-            {block.content}
-          </Draggable>
+          <BlockContent key={block.blockId} block={block} />
         ))}
     </Droppable>
   );

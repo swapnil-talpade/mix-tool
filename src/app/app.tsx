@@ -126,10 +126,10 @@ const App = () => {
         <span className="text-lg font-semibold">Blocks</span>
         <Blocks blocks={blockData} />
       </div>
-      <div className="basis-2/4 border h-full bg-[#EAEAEB] p-4 flex flex-col gap-2">
+      <div className="basis-2/4 border bg-[#EAEAEB] p-4 flex flex-col gap-2">
         <span className="text-lg font-semibold">Play Area</span>
-        <div className="grid grid-cols-30 h-[90%] bg-white">
-          {new Array(900).fill(0).map((_, index) => (
+        <div className="grid grid-cols-12 bg-white">
+          {new Array(840).fill(0).map((_, index) => (
             <Canvas
               blocks={blockData}
               key={index}

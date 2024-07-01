@@ -120,7 +120,7 @@ const Customiser = ({ block, setBlockData, blocks }: CustomiserProps) => {
       </div>
       {customizations.map((customization) => {
         return (
-          <div key={customization} className="w-full">
+          <div key={customization} className="w-full flex flex-col gap-2">
             <input
               type="text"
               placeholder={customization}
@@ -128,7 +128,12 @@ const Customiser = ({ block, setBlockData, blocks }: CustomiserProps) => {
               onChange={(event) => onCustomisationChange(event, customization)}
             />
             {customization === CUSTOMIZATION.ImageSource && (
-              <button onClick={onImageChange}>Update</button>
+              <button
+                onClick={onImageChange}
+                className="bg-[#274BDB] px-2 py-1 text-white rounded-md "
+              >
+                Update
+              </button>
             )}
           </div>
         );
