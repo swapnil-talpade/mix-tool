@@ -27,8 +27,6 @@ const App = () => {
   const [selectedBlock, setSelectedBlock] = useState<BlockData | null>(null);
   const localStorageService = new LocalStorage();
 
-  const onDragStart = (event: DragStartEvent) => {};
-
   const onDragMove = (event: DragMoveEvent) => {
     const { collisions } = event;
 
@@ -64,7 +62,9 @@ const App = () => {
 
     const block = active.data.current as BlockData;
 
-    setSelectedBlock(block);
+    if (over?.id || block.dropableId) {
+      setSelectedBlock(block);
+    }
 
     const isNewBlockPresent = updatedBlockData.some(
       (prevBlock) =>
@@ -116,12 +116,7 @@ const App = () => {
   }, [blockData]);
 
   return (
-    <DndContext
-      sensors={sensors}
-      onDragStart={onDragStart}
-      onDragMove={onDragMove}
-      onDragEnd={onDragEnd}
-    >
+    <DndContext sensors={sensors} onDragMove={onDragMove} onDragEnd={onDragEnd}>
       <div className="basis-1/4 border h-full p-4 relative flex flex-col gap-2">
         <span className="text-lg font-semibold">Blocks</span>
         <Blocks blocks={blockData} />
