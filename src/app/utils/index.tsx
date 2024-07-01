@@ -23,7 +23,7 @@ export const deserializeBlocks = (blocks: any) => {
       case "image_block":
         content = (
           <Image
-            src={block.content.props.src.src}
+            src={block.content.props.src}
             alt={block.content.props.alt}
             width={block.content.props.width}
             height={block.content.props.height}

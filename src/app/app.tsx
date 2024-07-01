@@ -19,7 +19,7 @@ import { LocalStorage } from "./services/local-storage";
 import { deserializeBlocks } from "./utils";
 
 const App = () => {
-  const [blockData, setBlockData] = useState<BlockData[]>(BLOCK_DATA);
+  const [blockData, setBlockData] = useState<BlockData[]>([]);
   const sensors = useSensors(useSensor(PointerSensor));
   const [canvasStyles, setCanvasStyles] = useState<
     Record<string, CSSProperties>
@@ -97,23 +97,23 @@ const App = () => {
     setSelectedBlock(null);
   };
 
-  // useEffect(() => {
-  //   if (blockData?.length > 0) {
-  //     localStorageService.setItem("blocks", JSON.stringify(blockData));
-  //   } else {
-  //     const blocks = localStorageService.getItem("blocks");
+  useEffect(() => {
+    if (blockData?.length > 0) {
+      localStorageService.setItem("blocks", JSON.stringify(blockData));
+    } else {
+      const blocks = localStorageService.getItem("blocks");
 
-  //     const parsedBlocks: BlockData[] =
-  //       blocks && deserializeBlocks(JSON.parse(blocks));
+      const parsedBlocks: BlockData[] =
+        blocks && deserializeBlocks(JSON.parse(blocks));
 
-  //     if (parsedBlocks?.length > 0) {
-  //       setBlockData(parsedBlocks);
-  //     } else {
-  //       localStorageService.setItem("blocks", JSON.stringify(BLOCK_DATA));
-  //       setBlockData(BLOCK_DATA);
-  //     }
-  //   }
-  // }, [blockData]);
+      if (parsedBlocks?.length > 0) {
+        setBlockData(parsedBlocks);
+      } else {
+        localStorageService.setItem("blocks", JSON.stringify(BLOCK_DATA));
+        setBlockData(BLOCK_DATA);
+      }
+    }
+  }, [blockData]);
 
   return (
     <DndContext
