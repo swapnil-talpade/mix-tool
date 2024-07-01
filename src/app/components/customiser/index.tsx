@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { BlockData, CUSTOMIZATION } from "../blocks/types";
 import { getCustomiserOptions } from "./util";
 import Image from "next/image";
+import PlaceHolderImage from "../../../assets/images/placeholder-image.png";
 
 type CustomiserProps = {
   block?: BlockData | null;
@@ -9,6 +11,13 @@ type CustomiserProps = {
 };
 
 const Customiser = ({ block, setBlockData, blocks }: CustomiserProps) => {
+  const [inputValue, setInputValue] = useState({
+    name: "",
+    imageSource: "",
+    color: "",
+    backgroundColor: "",
+  });
+
   if (!block) {
     return (
       <div className="flex items-center justify-center rounded-md bg-[#EAEAEB] p-4 w-full">
@@ -36,11 +45,15 @@ const Customiser = ({ block, setBlockData, blocks }: CustomiserProps) => {
               };
             }
             case CUSTOMIZATION.ImageSource: {
+              setInputValue((prev) => ({
+                ...prev,
+                imageSource: event.target.value,
+              }));
               return {
                 ...blockData,
                 content: (
                   <Image
-                    src={event.target.value}
+                    src={PlaceHolderImage}
                     alt="placeholder-image"
                     width={150}
                     height={150}
@@ -78,6 +91,28 @@ const Customiser = ({ block, setBlockData, blocks }: CustomiserProps) => {
     }
   };
 
+  const onImageChange = () => {
+    const updatedBlockData = blocks.map((blockData) => {
+      if (blockData.blockId === block.blockId) {
+        return {
+          ...blockData,
+          content: (
+            <Image
+              src={inputValue.imageSource}
+              alt="placeholder-image"
+              width={150}
+              height={150}
+            />
+          ),
+        };
+      }
+
+      return blockData;
+    });
+
+    setBlockData(updatedBlockData);
+  };
+
   return (
     <div className="flex flex-col gap-2 items-start">
       <div className="flex items-center justify-center rounded-md bg-[#EAEAEB] p-4 w-full">
@@ -92,6 +127,9 @@ const Customiser = ({ block, setBlockData, blocks }: CustomiserProps) => {
               className="border rounded-md px-2 py-1 w-full"
               onChange={(event) => onCustomisationChange(event, customization)}
             />
+            {customization === CUSTOMIZATION.ImageSource && (
+              <button onClick={onImageChange}>Update</button>
+            )}
           </div>
         );
       })}

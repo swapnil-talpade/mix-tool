@@ -55,14 +55,9 @@ export const BLOCK_DATA: BlockData[] = [
     ),
     blockId: crypto.randomUUID(),
     defaultStyle: {
-      padding: "1px 6px",
-      color: "black",
       cursor: "pointer",
       width: "150px",
-      height: "150px",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
+      height: "auto",
     },
   },
 ];

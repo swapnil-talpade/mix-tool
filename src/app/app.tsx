@@ -1,6 +1,6 @@
 "use client";
 
-import { CSSProperties, useState } from "react";
+import { CSSProperties, useEffect, useState } from "react";
 import Blocks from "./components/blocks";
 import { BLOCK_DATA } from "./components/blocks/block-data";
 import Canvas from "./components/canvas";
@@ -15,14 +15,17 @@ import {
   useSensors,
 } from "@dnd-kit/core";
 import { BlockData } from "./components/blocks/types";
+import { LocalStorage } from "./services/local-storage";
+import { deserializeBlocks } from "./utils";
 
 const App = () => {
-  const [blockData, setBlockData] = useState(BLOCK_DATA);
+  const [blockData, setBlockData] = useState<BlockData[]>(BLOCK_DATA);
   const sensors = useSensors(useSensor(PointerSensor));
   const [canvasStyles, setCanvasStyles] = useState<
     Record<string, CSSProperties>
   >({});
   const [selectedBlock, setSelectedBlock] = useState<BlockData | null>(null);
+  const localStorageService = new LocalStorage();
 
   const onDragStart = (event: DragStartEvent) => {};
 
@@ -93,6 +96,24 @@ const App = () => {
     setBlockData(updatedBlockData);
     setSelectedBlock(null);
   };
+
+  // useEffect(() => {
+  //   if (blockData?.length > 0) {
+  //     localStorageService.setItem("blocks", JSON.stringify(blockData));
+  //   } else {
+  //     const blocks = localStorageService.getItem("blocks");
+
+  //     const parsedBlocks: BlockData[] =
+  //       blocks && deserializeBlocks(JSON.parse(blocks));
+
+  //     if (parsedBlocks?.length > 0) {
+  //       setBlockData(parsedBlocks);
+  //     } else {
+  //       localStorageService.setItem("blocks", JSON.stringify(BLOCK_DATA));
+  //       setBlockData(BLOCK_DATA);
+  //     }
+  //   }
+  // }, [blockData]);
 
   return (
     <DndContext
