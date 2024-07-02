@@ -26,10 +26,10 @@ const CustomiserBlock = ({
           ...blockData,
           content: (
             <Image
-              src={inputValue?.imageSource}
+              src={inputValue?.image_source}
               alt="placeholder-image"
-              width={150}
-              height={150}
+              width={blockData.defaultStyle?.width as number}
+              height={blockData.defaultStyle?.height as number}
             />
           ),
         };
@@ -69,8 +69,8 @@ const CustomiserBlock = ({
                   <Image
                     src={PlaceHolderImage}
                     alt="placeholder-image"
-                    width={150}
-                    height={150}
+                    width={blockData.defaultStyle?.width as number}
+                    height={blockData.defaultStyle?.height as number}
                   />
                 ),
               };

@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 export const deserializeBlocks = (blocks: any) => {
-  return blocks.map((block: any) => {
+  return blocks?.map((block: any) => {
     let content;
 
     switch (block.type) {
