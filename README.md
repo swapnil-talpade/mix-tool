@@ -15,7 +15,7 @@
 ## Steps
 
 ```sh
-   cd mix-tools
+   cd mix-tool
    npm i
    npm run dev
 ```

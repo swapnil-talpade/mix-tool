@@ -20,7 +20,6 @@ const BlockContent = ({ block }: BlockContentProps) => {
       height={updatedBlock?.defaultStyle?.height as number}
       width={updatedBlock?.defaultStyle?.width as number}
       onResizeStop={(e, data) => {
-        //when resize stops find the update block in blocks and update it's width and height and store blocks in local storage
         const updatedBlocks = blocks?.map((block) => {
           if (block.blockId === updatedBlock.blockId) {
             return {
@@ -65,7 +64,6 @@ const BlockContent = ({ block }: BlockContentProps) => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          padding: "10px",
         }}
       >
         <Draggable

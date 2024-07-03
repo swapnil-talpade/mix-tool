@@ -40,7 +40,7 @@ const Customiser = ({ block, setBlockData, blocks }: CustomiserProps) => {
   return (
     <div className="flex flex-col gap-2 items-start">
       <div className="flex items-center justify-center rounded-md bg-[#EAEAEB] p-4 w-full">
-        <div style={block?.defaultStyle}>{block?.content}</div>
+        <div>{block?.content}</div>
       </div>
       {customizations.map((customization) => {
         return (

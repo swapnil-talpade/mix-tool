@@ -1,6 +1,5 @@
-import PlaceHolderImage from "../../../assets/images/placeholder-image.png";
-import Image from "next/image";
 import { BlockData, CUSTOMIZATION } from "../blocks/types";
+import { IMAGE_URL } from "../blocks/constants";
 
 type CustomiserBlockProps = {
   blocks: BlockData[];
@@ -25,11 +24,16 @@ const CustomiserBlock = ({
         return {
           ...blockData,
           content: (
-            <Image
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
               src={inputValue?.image_source}
               alt="placeholder-image"
               width={blockData.defaultStyle?.width as number}
               height={blockData.defaultStyle?.height as number}
+              style={{
+                objectFit: "cover",
+                width: "100%",
+              }}
             />
           ),
         };
@@ -66,11 +70,15 @@ const CustomiserBlock = ({
               return {
                 ...blockData,
                 content: (
-                  <Image
-                    src={PlaceHolderImage}
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={IMAGE_URL}
                     alt="placeholder-image"
                     width={blockData.defaultStyle?.width as number}
                     height={blockData.defaultStyle?.height as number}
+                    style={{
+                      objectFit: "cover",
+                    }}
                   />
                 ),
               };

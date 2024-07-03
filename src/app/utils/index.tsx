@@ -36,11 +36,16 @@ export const deserializeBlocks = (blocks: any) => {
         break;
       case BLOCK_TYPE.ImageBlock:
         content = (
-          <Image
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
             src={block.content.props.src}
-            alt={block.content.props.alt}
+            alt="placeholder-image"
             width={block.content.props.width}
             height={block.content.props.height}
+            style={{
+              objectFit: "cover",
+              width: "100%",
+            }}
           />
         );
         break;

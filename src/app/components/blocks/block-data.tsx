@@ -1,6 +1,5 @@
-import Image from "next/image";
+import { IMAGE_URL } from "./constants";
 import { BLOCK_TYPE, BlockData } from "./types";
-import PlaceHolderImage from "../../../assets/images/placeholder-image.png";
 
 export const BLOCK_DATA: BlockData[] = [
   {
@@ -49,20 +48,21 @@ export const BLOCK_DATA: BlockData[] = [
     dropableId: null,
     defaultOrder: 3,
     content: (
-      <Image
-        src={PlaceHolderImage}
-        priority={false}
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={IMAGE_URL}
         alt="placeholder-image"
-        width={180}
-        objectFit=""
-        // height={150}
+        width={60}
+        height={90}
+        style={{
+          objectFit: "cover",
+          width: "100%",
+        }}
       />
     ),
     blockId: crypto.randomUUID(),
     defaultStyle: {
       cursor: "pointer",
-      width: 180,
-      // height: 150,
       position: "relative",
       zIndex: 1,
     },
