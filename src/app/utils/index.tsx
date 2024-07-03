@@ -21,7 +21,17 @@ export const deserializeBlocks = (blocks: any) => {
         );
         break;
       case "text_block":
-        content = <span>{block.content.props.children}</span>;
+        content = (
+          <span
+            style={{
+              fontSize: block.defaultStyle.fontSize,
+              color: block.defaultStyle.color,
+              height: block.defaultStyle.height,
+            }}
+          >
+            {block.content.props.children}
+          </span>
+        );
         break;
       case "image_block":
         content = (
