@@ -1,36 +1,21 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Mix Tool
 
-## Getting Started
+## _The fastest way to build internal software_
 
-First, run the development server:
+## High Level Design
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+![High Level Design](https://github-production-user-asset-6210df.s3.amazonaws.com/55242050/345442302-d6a3d547-16bc-4acd-8751-6cfd6f3e59f2.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240703%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240703T133335Z&X-Amz-Expires=300&X-Amz-Signature=cdb2bb690637028bb7d00ef8541991b5327a17faecf512122c4f43c10e6cdc47&X-Amz-SignedHeaders=host&actor_id=55242050&key_id=0&repo_id=822154973)
+
+## Setup
+
+- Make sure you have node installed
+- Clone the repo
+- Install dependencies and run the app
+
+## Steps
+
+```sh
+   cd mix-tools
+   npm i
+   npm run dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

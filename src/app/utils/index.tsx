@@ -2,13 +2,14 @@ import type { ClientRect } from "@dnd-kit/core";
 import type { Transform } from "@dnd-kit/utilities";
 
 import Image from "next/image";
+import { BLOCK_TYPE } from "../components/blocks/types";
 
 export const deserializeBlocks = (blocks: any) => {
   return blocks?.map((block: any) => {
     let content;
 
     switch (block.type) {
-      case "button_block":
+      case BLOCK_TYPE.ButtonBlock:
         content = (
           <button
             style={{
@@ -20,7 +21,7 @@ export const deserializeBlocks = (blocks: any) => {
           </button>
         );
         break;
-      case "text_block":
+      case BLOCK_TYPE.TextBlock:
         content = (
           <span
             style={{
@@ -33,7 +34,7 @@ export const deserializeBlocks = (blocks: any) => {
           </span>
         );
         break;
-      case "image_block":
+      case BLOCK_TYPE.ImageBlock:
         content = (
           <Image
             src={block.content.props.src}
