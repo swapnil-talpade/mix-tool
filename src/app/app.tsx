@@ -1,6 +1,6 @@
 "use client";
 
-import { CSSProperties, useEffect, useState } from "react";
+import { useState } from "react";
 import Blocks from "./components/blocks";
 import { BLOCK_DATA } from "./components/blocks/block-data";
 import Canvas from "./components/canvas";
@@ -9,41 +9,22 @@ import {
   DndContext,
   DragEndEvent,
   DragMoveEvent,
+  Modifier,
   PointerSensor,
+  pointerWithin,
+  rectIntersection,
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
 import { BlockData } from "./components/blocks/types";
 import { LocalStorage } from "./services/local-storage";
-import { deserializeBlocks } from "./utils";
+import { deserializeBlocks, restrictToBoundingRect } from "./utils";
 
 const App = () => {
-  const [blockData, setBlockData] = useState<BlockData[]>([]);
+  const [blockData, setBlockData] = useState<BlockData[]>(BLOCK_DATA);
   const sensors = useSensors(useSensor(PointerSensor));
-  const [canvasStyles, setCanvasStyles] = useState<
-    Record<string, CSSProperties>
-  >({});
   const [selectedBlock, setSelectedBlock] = useState<BlockData | null>(null);
   const localStorageService = new LocalStorage();
-
-  const onDragMove = (event: DragMoveEvent) => {
-    const { collisions } = event;
-
-    const styles = collisions?.reduce((acc, collision) => {
-      if (collision?.id) {
-        return {
-          ...acc,
-          [collision.id]: {
-            border: "1px solid #E4E9F2",
-          },
-        };
-      }
-
-      return acc;
-    }, {});
-
-    setCanvasStyles({ ...styles });
-  };
 
   const onDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
@@ -82,7 +63,7 @@ const App = () => {
       setBlockData(updatedBlockData);
     }
 
-    setCanvasStyles({});
+    // setCanvasStyles({});
   };
 
   const onDeleteBlockHandler = () => {
@@ -96,41 +77,67 @@ const App = () => {
     setSelectedBlock(null);
   };
 
-  useEffect(() => {
-    if (blockData?.length > 0) {
-      localStorageService.setItem("blocks", JSON.stringify(blockData));
-    } else {
-      const blocks = localStorageService.getItem("blocks");
+  // useEffect(() => {
+  //   if (blockData?.length > 0) {
+  //     localStorageService.setItem("blocks", JSON.stringify(blockData));
+  //   } else {
+  //     const blocks = localStorageService.getItem("blocks");
 
-      const parsedBlocks: BlockData[] =
-        blocks && deserializeBlocks(JSON.parse(blocks));
+  //     const parsedBlocks: BlockData[] =
+  //       blocks && deserializeBlocks(JSON.parse(blocks));
 
-      if (parsedBlocks?.length > 0) {
-        setBlockData(parsedBlocks);
-      } else {
-        localStorageService.setItem("blocks", JSON.stringify(BLOCK_DATA));
-        setBlockData(BLOCK_DATA);
-      }
+  //     if (parsedBlocks?.length > 0) {
+  //       setBlockData(parsedBlocks);
+  //     } else {
+  //       localStorageService.setItem("blocks", JSON.stringify(BLOCK_DATA));
+  //       setBlockData(BLOCK_DATA);
+  //     }
+  //   }
+  // }, [blockData]);
+
+  const customCollisionDetectionAlgorithm = (args: any) => {
+    const pointerCollisions = pointerWithin(args);
+
+    if (pointerCollisions.length > 0) {
+      return pointerCollisions;
     }
-  }, [blockData]);
+
+    return rectIntersection(args);
+  };
+
+  const modifier: Modifier = (args) => {
+    if (args.active == null) {
+      return args.transform;
+    }
+
+    const { draggingNodeRect, transform } = args;
+
+    if (draggingNodeRect == null || args.over == null) {
+      return transform;
+    }
+
+    return restrictToBoundingRect(transform, draggingNodeRect, args.over.rect);
+  };
 
   return (
-    <DndContext sensors={sensors} onDragMove={onDragMove} onDragEnd={onDragEnd}>
+    <DndContext
+      sensors={sensors}
+      onDragEnd={onDragEnd}
+      modifiers={[modifier]}
+      collisionDetection={customCollisionDetectionAlgorithm}
+    >
       <div className="basis-1/4 border h-full p-4 relative flex flex-col gap-2">
         <span className="text-lg font-semibold">Blocks</span>
         <Blocks blocks={blockData} />
       </div>
-      <div className="basis-2/4 border bg-[#EAEAEB] p-4 flex flex-col gap-2">
+      <div className="basis-2/4 overflow-hidden border bg-[#EAEAEB] p-4 flex flex-col gap-2 h-full">
         <span className="text-lg font-semibold">Play Area</span>
-        <div className="grid grid-cols-12 bg-white">
-          {new Array(840).fill(0).map((_, index) => (
-            <Canvas
-              blocks={blockData}
-              key={index}
-              id={`canvas-${index}`}
-              styles={canvasStyles[`canvas-${index}`]}
-            />
-          ))}
+        <div className="overflow-scroll w-full h-full">
+          <div className="flex flex-wrap bg-white w-[1920px] h-[1080px]">
+            {new Array(1152).fill(0).map((_, index) => (
+              <Canvas blocks={blockData} key={index} id={`canvas-${index}`} />
+            ))}
+          </div>
         </div>
       </div>
 

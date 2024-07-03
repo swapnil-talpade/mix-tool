@@ -7,16 +7,16 @@ import BlockContent from "./block-content";
 type CanvasProps = {
   blocks: BlockData[];
   id: string;
-  styles?: React.CSSProperties;
 };
 
-const Canvas = ({ blocks, id, styles }: CanvasProps) => {
+const Canvas = ({ blocks, id }: CanvasProps) => {
   return (
     <Droppable
       id={id}
       styles={{
-        height: "10px",
-        ...styles,
+        height: "30px",
+        width: "60px",
+        border: "1px solid #E4E9F2",
       }}
     >
       {blocks

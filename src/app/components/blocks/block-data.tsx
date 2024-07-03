@@ -11,9 +11,8 @@ export const BLOCK_DATA: BlockData[] = [
     blockId: crypto.randomUUID(),
     defaultStyle: {
       background: "#274BDB",
-      padding: "1px 6px",
       height: 30,
-      width: 100,
+      width: 120,
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
@@ -35,6 +34,7 @@ export const BLOCK_DATA: BlockData[] = [
     defaultStyle: {
       padding: "1px 6px",
       height: 30,
+      width: 60,
       color: "black",
       cursor: "pointer",
       display: "flex",
@@ -53,15 +53,16 @@ export const BLOCK_DATA: BlockData[] = [
         src={PlaceHolderImage}
         priority={false}
         alt="placeholder-image"
-        width={150}
-        height={150}
+        width={180}
+        objectFit=""
+        // height={150}
       />
     ),
     blockId: crypto.randomUUID(),
     defaultStyle: {
       cursor: "pointer",
-      width: 150,
-      height: 150,
+      width: 180,
+      // height: 150,
       position: "relative",
       zIndex: 1,
     },
