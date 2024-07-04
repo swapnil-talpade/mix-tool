@@ -52,8 +52,6 @@ export const BLOCK_DATA: BlockData[] = [
       <img
         src={IMAGE_URL}
         alt="placeholder-image"
-        width={60}
-        height={90}
         style={{
           objectFit: "cover",
           width: "100%",
@@ -65,6 +63,8 @@ export const BLOCK_DATA: BlockData[] = [
       cursor: "pointer",
       position: "relative",
       zIndex: 1,
+      width: 60,
+      height: 90,
     },
   },
 ];

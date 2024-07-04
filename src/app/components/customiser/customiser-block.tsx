@@ -78,6 +78,7 @@ const CustomiserBlock = ({
                     height={blockData.defaultStyle?.height as number}
                     style={{
                       objectFit: "cover",
+                      width: "100%",
                     }}
                   />
                 ),
