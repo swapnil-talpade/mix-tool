@@ -19,7 +19,13 @@ import { BlockData } from "./components/blocks/types";
 import { LocalStorage } from "./services/local-storage";
 import { deserializeBlocks, restrictToBoundingRect } from "./utils";
 
-export const BlockContext = createContext<BlockData[] | undefined>(undefined);
+export const BlockContext = createContext<{
+  blocks: BlockData[];
+  setBlocks: React.Dispatch<React.SetStateAction<BlockData[]>>;
+}>({
+  blocks: [],
+  setBlocks: () => {},
+});
 
 const App = () => {
   const [blockData, setBlockData] = useState<BlockData[]>([]);
@@ -119,7 +125,12 @@ const App = () => {
   };
 
   return (
-    <BlockContext.Provider value={blockData}>
+    <BlockContext.Provider
+      value={{
+        blocks: blockData,
+        setBlocks: setBlockData,
+      }}
+    >
       <DndContext
         sensors={sensors}
         onDragEnd={onDragEnd}

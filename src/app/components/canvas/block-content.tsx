@@ -11,7 +11,7 @@ type BlockContentProps = {
 
 const BlockContent = ({ block }: BlockContentProps) => {
   const [updatedBlock, setUpdatedBlock] = useState(block);
-  const blocks = useContext(BlockContext);
+  const { blocks, setBlocks } = useContext(BlockContext);
 
   const localStorageService = new LocalStorage();
 
@@ -38,29 +38,31 @@ const BlockContent = ({ block }: BlockContentProps) => {
           return block;
         });
 
+        setBlocks(updatedBlocks);
+
         localStorageService.setItem("blocks", JSON.stringify(updatedBlocks));
       }}
       onResize={(_, data) => {
         const { height, width } = data.size;
 
-        setUpdatedBlock({
-          ...updatedBlock,
+        setUpdatedBlock((prev) => ({
+          ...prev,
           defaultStyle: {
-            ...updatedBlock.defaultStyle,
+            ...prev.defaultStyle,
             height: height,
             width: width,
             fontSize:
               block?.type === BLOCK_TYPE.TextBlock
                 ? data.size.height
-                : updatedBlock?.defaultStyle?.fontSize,
+                : prev?.defaultStyle?.fontSize,
           },
-        });
+        }));
       }}
     >
       <div
         style={{
-          width: updatedBlock.defaultStyle?.width + "px",
-          height: updatedBlock.defaultStyle?.height + "px",
+          width: updatedBlock.defaultStyle?.width,
+          height: updatedBlock.defaultStyle?.height,
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -68,12 +70,12 @@ const BlockContent = ({ block }: BlockContentProps) => {
       >
         <Draggable
           key={block.blockId}
-          id={block.blockId.toString()}
+          id={block.blockId}
           styles={{
             ...block.defaultStyle,
-            height: updatedBlock.defaultStyle?.height + "px",
-            width: updatedBlock.defaultStyle?.width + "px",
-            fontSize: updatedBlock.defaultStyle?.fontSize + "px",
+            height: updatedBlock.defaultStyle?.height,
+            width: updatedBlock.defaultStyle?.width,
+            fontSize: updatedBlock.defaultStyle?.fontSize,
           }}
           data={block}
         >
