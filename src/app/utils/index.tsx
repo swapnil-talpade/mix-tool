@@ -89,3 +89,14 @@ export function restrictToBoundingRect(
 
   return value;
 }
+
+export const getMinConstraints = (blockType: BLOCK_TYPE): [number, number] => {
+  switch (blockType) {
+    case BLOCK_TYPE.ButtonBlock:
+      return [120, 30];
+    case BLOCK_TYPE.ImageBlock:
+      return [60, 90];
+    case BLOCK_TYPE.TextBlock:
+      return [60, 30];
+  }
+};

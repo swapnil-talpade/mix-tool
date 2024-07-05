@@ -4,6 +4,7 @@ import { Resizable } from "react-resizable";
 import { useContext, useState } from "react";
 import { LocalStorage } from "@/app/services/local-storage";
 import { BlockContext } from "@/app/app";
+import { getMinConstraints } from "@/app/utils";
 
 type BlockContentProps = {
   block: BlockData;
@@ -15,10 +16,14 @@ const BlockContent = ({ block }: BlockContentProps) => {
 
   const localStorageService = new LocalStorage();
 
+  const gridWidth = 60;
+  const gridHeight = 30;
+
   return (
     <Resizable
       height={updatedBlock?.defaultStyle?.height as number}
       width={updatedBlock?.defaultStyle?.width as number}
+      minConstraints={getMinConstraints(updatedBlock.type)}
       onResizeStop={(e, data) => {
         const updatedBlocks = blocks?.map((block) => {
           if (block.blockId === updatedBlock.blockId) {
@@ -42,6 +47,7 @@ const BlockContent = ({ block }: BlockContentProps) => {
 
         localStorageService.setItem("blocks", JSON.stringify(updatedBlocks));
       }}
+      draggableOpts={{ grid: [gridWidth, gridHeight] }}
       onResize={(_, data) => {
         const { height, width } = data.size;
 
@@ -53,7 +59,7 @@ const BlockContent = ({ block }: BlockContentProps) => {
             width: width,
             fontSize:
               block?.type === BLOCK_TYPE.TextBlock
-                ? data.size.height
+                ? height
                 : prev?.defaultStyle?.fontSize,
           },
         }));

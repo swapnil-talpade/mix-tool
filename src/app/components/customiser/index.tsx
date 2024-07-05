@@ -38,9 +38,9 @@ const Customiser = ({ block, setBlockData, blocks }: CustomiserProps) => {
   const customizations = getCustomiserOptions(block);
 
   return (
-    <div className="flex flex-col gap-2 items-start">
-      <div className="flex items-center justify-center rounded-md bg-[#EAEAEB] p-4 w-full">
-        <div>{block?.content}</div>
+    <div className="flex flex-col gap-2 items-center">
+      <div className="flex items-center justify-center rounded-md bg-[#EAEAEB] p-4 w-44 h-44 overflow-scroll ">
+        <div style={block.defaultStyle}>{block?.content}</div>
       </div>
       {customizations.map((customization) => {
         return (
