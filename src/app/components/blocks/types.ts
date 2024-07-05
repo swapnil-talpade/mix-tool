@@ -8,7 +8,8 @@ export enum BLOCK_TYPE {
 
 export type BlockData = {
   type: BLOCK_TYPE;
-  dropableId: UniqueIdentifier | null;
+  collisionIds: UniqueIdentifier[];
+  overId?: UniqueIdentifier;
   content: React.ReactNode;
   blockId: string;
   defaultOrder: number;

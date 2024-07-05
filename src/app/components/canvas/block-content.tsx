@@ -4,7 +4,7 @@ import { Resizable } from "react-resizable";
 import { useContext, useState } from "react";
 import { LocalStorage } from "@/app/services/local-storage";
 import { BlockContext } from "@/app/app";
-import { getMinConstraints } from "@/app/utils";
+import { calculateDropableIds, getMinConstraints } from "@/app/utils";
 
 type BlockContentProps = {
   block: BlockData;
@@ -16,8 +16,8 @@ const BlockContent = ({ block }: BlockContentProps) => {
 
   const localStorageService = new LocalStorage();
 
-  const gridWidth = 60;
-  const gridHeight = 30;
+  const GRID_WIDTH = 60;
+  const GRID_HEIGHT = 30;
 
   return (
     <Resizable
@@ -25,10 +25,16 @@ const BlockContent = ({ block }: BlockContentProps) => {
       width={updatedBlock?.defaultStyle?.width as number}
       minConstraints={getMinConstraints(updatedBlock.type)}
       onResizeStop={(e, data) => {
+        const collisionIds = calculateDropableIds(
+          updatedBlock,
+          updatedBlock.overId!
+        );
+
         const updatedBlocks = blocks?.map((block) => {
           if (block.blockId === updatedBlock.blockId) {
             return {
               ...block,
+              collisionIds,
               defaultStyle: {
                 ...block.defaultStyle,
                 height: data.size.height,
@@ -47,7 +53,7 @@ const BlockContent = ({ block }: BlockContentProps) => {
 
         localStorageService.setItem("blocks", JSON.stringify(updatedBlocks));
       }}
-      draggableOpts={{ grid: [gridWidth, gridHeight] }}
+      draggableOpts={{ grid: [GRID_WIDTH, GRID_HEIGHT] }}
       onResize={(_, data) => {
         const { height, width } = data.size;
 

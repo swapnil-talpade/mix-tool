@@ -17,7 +17,11 @@ import {
 } from "@dnd-kit/core";
 import { BlockData } from "./components/blocks/types";
 import { LocalStorage } from "./services/local-storage";
-import { deserializeBlocks, restrictToBoundingRect } from "./utils";
+import {
+  calculateDropableIds,
+  deserializeBlocks,
+  restrictToBoundingRect,
+} from "./utils";
 
 export const BlockContext = createContext<{
   blocks: BlockData[];
@@ -36,11 +40,20 @@ const App = () => {
   const onDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
 
+    const isBlockOverlapping = blockData.some((block) => {
+      return block.collisionIds.some((id) => id === over?.id);
+    });
+
+    if (isBlockOverlapping) {
+      return;
+    }
+
     const updatedBlockData = blockData.map((block) => {
       if (block.blockId == active.id && over?.id) {
         return {
           ...block,
-          dropableId: over?.id!,
+          collisionIds: calculateDropableIds(block, over?.id),
+          overId: over?.id,
         };
       }
 
@@ -49,19 +62,19 @@ const App = () => {
 
     const block = active.data.current as BlockData;
 
-    if (over?.id || block.dropableId) {
+    if (over?.id || block.collisionIds.length > 0) {
       setSelectedBlock(block);
     }
 
     const isNewBlockPresent = updatedBlockData.some(
       (prevBlock) =>
-        prevBlock.dropableId == null && prevBlock.type === block?.type
+        prevBlock.collisionIds.length === 0 && prevBlock.type === block?.type
     );
 
     if (!isNewBlockPresent) {
       const newBlock: BlockData = {
         ...block!,
-        dropableId: null,
+        collisionIds: [],
         blockId: crypto.randomUUID(),
       };
 

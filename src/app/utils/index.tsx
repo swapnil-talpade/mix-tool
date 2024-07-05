@@ -1,8 +1,8 @@
-import type { ClientRect } from "@dnd-kit/core";
+import type { ClientRect, UniqueIdentifier } from "@dnd-kit/core";
 import type { Transform } from "@dnd-kit/utilities";
 
-import Image from "next/image";
-import { BLOCK_TYPE } from "../components/blocks/types";
+import { BLOCK_TYPE, BlockData } from "../components/blocks/types";
+import { GRID_HEIGHT, GRID_WIDTH } from "./constants";
 
 export const deserializeBlocks = (blocks: any) => {
   return blocks?.map((block: any) => {
@@ -99,4 +99,32 @@ export const getMinConstraints = (blockType: BLOCK_TYPE): [number, number] => {
     case BLOCK_TYPE.TextBlock:
       return [60, 30];
   }
+};
+
+export const calculateDropableIds = (
+  block: BlockData,
+  overId: UniqueIdentifier
+) => {
+  const overIndex = parseInt((overId as string).split("-")[1]);
+  const rowStart = Math.floor(overIndex / (1920 / GRID_WIDTH));
+  const colStart = overIndex % (1920 / GRID_WIDTH);
+
+  const blockWidthInCells = Math.ceil(
+    (block.defaultStyle?.width as number) / GRID_WIDTH
+  );
+  const blockHeightInCells = Math.ceil(
+    (block.defaultStyle?.height as number) / GRID_HEIGHT
+  );
+
+  const dropableIds = [];
+
+  for (let row = rowStart; row < rowStart + blockHeightInCells; row++) {
+    for (let col = colStart; col < colStart + blockWidthInCells; col++) {
+      dropableIds.push(
+        `canvas-${row * (1920 / GRID_WIDTH) + col}` as UniqueIdentifier
+      );
+    }
+  }
+
+  return dropableIds;
 };

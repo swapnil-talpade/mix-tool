@@ -4,7 +4,7 @@ import { BLOCK_TYPE, BlockData } from "./types";
 export const BLOCK_DATA: BlockData[] = [
   {
     type: BLOCK_TYPE.ButtonBlock,
-    dropableId: null,
+    collisionIds: [],
     content: <div>Button</div>,
     defaultOrder: 1,
     blockId: crypto.randomUUID(),
@@ -26,7 +26,7 @@ export const BLOCK_DATA: BlockData[] = [
   },
   {
     type: BLOCK_TYPE.TextBlock,
-    dropableId: null,
+    collisionIds: [],
     defaultOrder: 2,
     content: <span>Text</span>,
     blockId: crypto.randomUUID(),
@@ -45,7 +45,7 @@ export const BLOCK_DATA: BlockData[] = [
   },
   {
     type: BLOCK_TYPE.ImageBlock,
-    dropableId: null,
+    collisionIds: [],
     defaultOrder: 3,
     content: (
       // eslint-disable-next-line @next/next/no-img-element

@@ -11,7 +11,7 @@ const Blocks = ({ blocks }: BlocksProps) => {
   return (
     <div className="relative flex gap-2">
       {blocks
-        .filter((block) => block.dropableId === null)
+        .filter((block) => block.collisionIds.length === 0)
         .sort((a, b) => a.defaultOrder - b.defaultOrder)
         .map((block) => (
           <Draggable

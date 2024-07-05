@@ -20,7 +20,7 @@ const Canvas = ({ blocks, id }: CanvasProps) => {
       }}
     >
       {blocks
-        .filter((block) => id === block.dropableId)
+        .filter((block) => id === block.overId)
         .map((block) => (
           <BlockContent key={block.blockId} block={block} />
         ))}
