@@ -1,6 +1,6 @@
 "use client";
 
-import { BlockData } from "../blocks/types";
+import { BlockData } from "@/app/lib/types";
 import Droppable from "../dropable";
 import BlockContent from "./block-content";
 

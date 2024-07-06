@@ -1,8 +1,8 @@
 import type { ClientRect, UniqueIdentifier } from "@dnd-kit/core";
 import type { Transform } from "@dnd-kit/utilities";
 
-import { BLOCK_TYPE, BlockData } from "../components/blocks/types";
 import { GRID_HEIGHT, GRID_WIDTH } from "./constants";
+import { BLOCK_TYPE, BlockData, CUSTOMIZATION } from "./types";
 
 export const deserializeBlocks = (blocks: any) => {
   return blocks?.map((block: any) => {
@@ -127,4 +127,22 @@ export const calculateDropableIds = (
   }
 
   return dropableIds;
+};
+
+export const getCustomiserOptions = (customiser: BlockData) => {
+  switch (customiser.type) {
+    case BLOCK_TYPE.ButtonBlock: {
+      return [
+        CUSTOMIZATION.Name,
+        CUSTOMIZATION.Color,
+        CUSTOMIZATION.BackgroundColor,
+      ];
+    }
+    case BLOCK_TYPE.TextBlock: {
+      return [CUSTOMIZATION.Name, CUSTOMIZATION.Color];
+    }
+    case BLOCK_TYPE.ImageBlock: {
+      return [CUSTOMIZATION.ImageSource];
+    }
+  }
 };

@@ -1,7 +1,7 @@
 "use client";
 
+import { BlockData } from "@/app/lib/types";
 import Draggable from "../dragable";
-import { BlockData } from "./types";
 
 type BlocksProps = {
   blocks: BlockData[];

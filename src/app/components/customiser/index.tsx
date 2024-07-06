@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { BlockData } from "../blocks/types";
-import { getCustomiserOptions } from "./util";
 import CustomiserBlock from "./customiser-block";
+import { BlockData } from "@/app/lib/types";
+import { getCustomiserOptions } from "@/app/lib/utils";
 
 type CustomiserProps = {
   block?: BlockData | null;

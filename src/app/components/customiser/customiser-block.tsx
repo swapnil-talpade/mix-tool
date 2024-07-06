@@ -1,5 +1,5 @@
-import { BlockData, CUSTOMIZATION } from "../blocks/types";
-import { IMAGE_URL } from "../blocks/constants";
+import { IMAGE_URL } from "@/app/lib/constants";
+import { BlockData, CUSTOMIZATION } from "@/app/lib/types";
 
 type CustomiserBlockProps = {
   blocks: BlockData[];

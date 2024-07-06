@@ -15,13 +15,13 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
-import { BlockData } from "./components/blocks/types";
 import { LocalStorage } from "./services/local-storage";
 import {
   calculateDropableIds,
   deserializeBlocks,
   restrictToBoundingRect,
-} from "./utils";
+} from "./lib/utils";
+import { BlockData } from "./lib/types";
 
 export const BlockContext = createContext<{
   blocks: BlockData[];
@@ -87,31 +87,13 @@ const App = () => {
   const onDeleteBlockHandler = () => {
     if (!selectedBlock) return;
 
-    const updatedBlockData = blockData.filter(
+    const blocks = blockData.filter(
       (block) => block.blockId !== selectedBlock.blockId
     );
 
-    setBlockData(updatedBlockData);
+    setBlockData(blocks);
     setSelectedBlock(null);
   };
-
-  useEffect(() => {
-    if (blockData?.length > 0) {
-      localStorageService.setItem("blocks", JSON.stringify(blockData));
-    } else {
-      const blocks = localStorageService.getItem("blocks");
-
-      const parsedBlocks: BlockData[] =
-        blocks && deserializeBlocks(JSON.parse(blocks));
-
-      if (parsedBlocks?.length > 0) {
-        setBlockData(parsedBlocks);
-      } else {
-        localStorageService.setItem("blocks", JSON.stringify(BLOCK_DATA));
-        setBlockData(BLOCK_DATA);
-      }
-    }
-  }, [blockData]);
 
   const customCollisionDetectionAlgorithm = (args: any) => {
     const pointerCollisions = pointerWithin(args);
@@ -136,6 +118,24 @@ const App = () => {
 
     return restrictToBoundingRect(transform, draggingNodeRect, args.over.rect);
   };
+
+  useEffect(() => {
+    if (blockData?.length > 0) {
+      localStorageService.setItem("blocks", JSON.stringify(blockData));
+    } else {
+      const blocks = localStorageService.getItem("blocks");
+
+      const parsedBlocks: BlockData[] =
+        blocks && deserializeBlocks(JSON.parse(blocks));
+
+      if (parsedBlocks?.length > 0) {
+        setBlockData(parsedBlocks);
+      } else {
+        localStorageService.setItem("blocks", JSON.stringify(BLOCK_DATA));
+        setBlockData(BLOCK_DATA);
+      }
+    }
+  }, [blockData]);
 
   return (
     <BlockContext.Provider
