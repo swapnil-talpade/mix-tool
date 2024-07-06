@@ -3,8 +3,12 @@ import { Resizable } from "react-resizable";
 import { useContext, useState } from "react";
 import { LocalStorage } from "@/app/services/local-storage";
 import { BlockContext } from "@/app/app";
-import { calculateDropableIds, getMinConstraints } from "@/app/lib/utils";
-import { BLOCK_TYPE, BlockData } from "@/app/lib/types";
+import {
+  BLOCK_TYPE,
+  BlockData,
+  calculateDropableIds,
+  getMinConstraints,
+} from "@/app/lib";
 
 type BlockContentProps = {
   block: BlockData;

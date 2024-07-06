@@ -1,5 +1,4 @@
-import { IMAGE_URL } from "@/app/lib/constants";
-import { BLOCK_TYPE, BlockData } from "@/app/lib/types";
+import { BLOCK_TYPE, BlockData, IMAGE_URL } from "@/app/lib";
 
 export const BLOCK_DATA: BlockData[] = [
   {

@@ -1,7 +1,7 @@
 "use client";
 
+import { BlockData } from "@/app/lib";
 import { useDraggable } from "@dnd-kit/core";
-import { BlockData } from "../blocks/types";
 
 type DraggableProps = {
   children: React.ReactNode;
